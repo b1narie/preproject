@@ -21,16 +21,20 @@ public class User implements Serializable {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "role")
+    private String role;
+
     public User() {}
 
-    public User(String name, String login, String password) {
+    public User(String name, String login, String password, String role) {
         this.name = name;
         this.login = login;
         this.password = password;
+        this.role = role;
     }
 
-    public User(Long id, String name, String login, String password) {
-        this(name, login, password);
+    public User(Long id, String name, String login, String password, String role) {
+        this(name, login, password, role);
         this.id = id;
     }
 
@@ -50,6 +54,8 @@ public class User implements Serializable {
         return password;
     }
 
+    public String getRole() { return role; }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -65,4 +71,6 @@ public class User implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public void setRole(String role) { this.role = role; }
 }

@@ -28,7 +28,8 @@ public class AddServlet extends HttpServlet {
         String name = req.getParameter("name");
         String login = req.getParameter("login");
         String password = req.getParameter("password");
-        User user = new User(name, login, password);
+        String role = req.getParameter("role");
+        User user = new User(name, login, password, role);
         userService.addUser(user);
         resp.sendRedirect("/");
     }

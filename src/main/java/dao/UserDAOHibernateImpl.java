@@ -9,16 +9,17 @@ import java.util.List;
 
 public class UserDAOHibernateImpl implements UserDAO {
 
-    private Session session;
     private SessionFactory factory;
 
     public UserDAOHibernateImpl(SessionFactory factory){
         this.factory = factory;
     }
 
+    @Override
     public void addUser(User user) {
+        Session session = factory.openSession();
+
         try {
-            session = factory.openSession();
             session.beginTransaction();
             session.save(user);
             session.getTransaction().commit();
@@ -34,9 +35,11 @@ public class UserDAOHibernateImpl implements UserDAO {
         }
     }
 
+    @Override
     public void deleteUser(User user) {
+        Session session = factory.openSession();
+
         try {
-            session = factory.openSession();
             session.beginTransaction();
             session.delete(user);
             session.getTransaction().commit();
@@ -52,9 +55,11 @@ public class UserDAOHibernateImpl implements UserDAO {
         }
     }
 
+    @Override
     public void updateUser(User user) {
+        Session session = factory.openSession();
+
         try {
-            session = factory.openSession();
             session.beginTransaction();
             session.update(user);
             session.getTransaction().commit();
@@ -71,16 +76,17 @@ public class UserDAOHibernateImpl implements UserDAO {
 
     }
 
+    @Override
     public User getUserById(Long id) {
-        session = factory.openSession();
+        Session session = factory.openSession();
         User user = session.get(User.class, id);
         session.close();
         return user;
     }
 
-    @SuppressWarnings("unchecked")
+    @Override
     public List<User> getAllUsers() {
-        session = factory.openSession();
+        Session session = factory.openSession();
         List<User> users = session.createQuery("FROM User", User.class).list();
         session.close();
         return users;

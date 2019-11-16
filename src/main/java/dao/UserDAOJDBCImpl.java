@@ -14,29 +14,34 @@ public class UserDAOJDBCImpl implements UserDAO {
         this.executor = new Executor(connection);
     }
 
+    @Override
     public void addUser(User user){
-        String query = "INSERT INTO users(name, login, password) VALUES ('"+ user.getName() +"', '" + user.getLogin() + "', '" + user.getPassword() + "')";
+        String query = "INSERT INTO users(name, login, password, role) VALUES ('"+ user.getName() +"', '" + user.getLogin() + "', '" + user.getPassword() + "', '" + user.getRole() + "')";
         executor.executeUpdate(query);
     }
 
+    @Override
     public void deleteUser(User user) {
         String query = "DELETE FROM users WHERE id=" + user.getId();
         executor.executeUpdate(query);
     }
 
+    @Override
     public void updateUser(User user) {
-        String query = "UPDATE users SET name='" + user.getName() + "', login='" + user.getLogin() + "', password='" + user.getPassword()+ "' WHERE id=" + user.getId();
+        String query = "UPDATE users SET name='" + user.getName() + "', login='" + user.getLogin() + "', password='" + user.getPassword() + "', role='" + user.getRole() + "' WHERE id=" + user.getId();
         executor.executeUpdate(query);
     }
 
+    @Override
     public User getUserById(Long id) {
         String query = "SELECT * FROM users WHERE id=" + id;
         return executor.executeQuery(query, resultSet -> {
             resultSet.next();
-            return new User(resultSet.getLong(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4));
+            return new User(resultSet.getLong(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5));
         });
     }
 
+    @Override
     public List<User> getAllUsers() {
         String query = "SELECT * FROM users";
         return executor.executeQuery(query, resultSet -> {
@@ -46,7 +51,8 @@ public class UserDAOJDBCImpl implements UserDAO {
                 String userName = resultSet.getString(2);
                 String userLogin = resultSet.getString(3);
                 String userPassword = resultSet.getString(4);
-                users.add(new User(userId, userName, userLogin, userPassword));
+                String userRole = resultSet.getString(5);
+                users.add(new User(userId, userName, userLogin, userPassword, userRole));
             }
             return users;
         });

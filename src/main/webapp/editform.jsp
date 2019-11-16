@@ -32,6 +32,10 @@
                 <td><input type="text" name="password" value="<c:out value="${user.password}"/>"></td>
             </tr>
             <tr>
+                <th>Role: </th>
+                <td><input type="text" name="role" value="<c:out value="${user.role}"/>"></td>
+            </tr>
+            <tr>
                 <td><input type="submit" value="save"></td>
             </tr>
         </table>

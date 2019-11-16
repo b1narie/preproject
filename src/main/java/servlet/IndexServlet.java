@@ -22,7 +22,7 @@ public class IndexServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<User> allUsers = userService.getAllUsers();
         req.setAttribute("allUsers", allUsers);
-        RequestDispatcher dispatcher = req.getRequestDispatcher("index.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("list.jsp");
         dispatcher.forward(req, resp);
     }
 }

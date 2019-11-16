@@ -28,6 +28,10 @@
                 <td><input type="password" name="password"></td>
             </tr>
             <tr>
+                <th>Role: </th>
+                <td><input type="text" name="role"></td>
+            </tr>
+            <tr>
                 <td><input type="submit" value="add"></td>
             </tr>
         </table>
