@@ -29,7 +29,13 @@
             </tr>
             <tr>
                 <th>Role: </th>
-                <td><input type="text" name="role"></td>
+                <td>
+                    <input type="radio" name="role" value="user" id="userRadio" checked>
+                    <label for="userRadio">User</label>
+                    &nbsp;
+                    <input type="radio" name="role" value="admin" id="adminRadio">
+                    <label for="adminRadio">Admin</label>
+                </td>
             </tr>
             <tr>
                 <td><input type="submit" value="add"></td>

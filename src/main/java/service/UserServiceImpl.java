@@ -7,6 +7,8 @@ import model.User;
 import org.hibernate.SessionFactory;
 import util.DBHelper;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class UserServiceImpl implements UserService {
@@ -47,5 +49,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getAllUsers() {
         return userDAO.getAllUsers();
+    }
+
+    @Override
+    public User authUser(String login, String password) {
+        LinkedList<User> users = new LinkedList<>(getAllUsers());
+        return users.stream()
+                .filter(user -> login.equals(user.getLogin()) && password.equals(user.getPassword()))
+                .findFirst()
+                .orElse(null);
     }
 }

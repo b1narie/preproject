@@ -33,7 +33,14 @@
             </tr>
             <tr>
                 <th>Role: </th>
-                <td><input type="text" name="role" value="<c:out value="${user.role}"/>"></td>
+<%--                <td><input type="text" name="role" value="<c:out value="${user.role}"/>"></td>--%>
+                <td>
+                    <input type="radio" name="role" value="user" id="userRadio" checked>
+                    <label for="userRadio">User</label>
+                    &nbsp;
+                    <input type="radio" name="role" value="admin" id="adminRadio">
+                    <label for="adminRadio">Admin</label>
+                </td>
             </tr>
             <tr>
                 <td><input type="submit" value="save"></td>

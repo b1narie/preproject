@@ -27,7 +27,7 @@ public class EditServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         Long id = Long.parseLong(req.getParameter("id"));
         String name = req.getParameter("name");
         String login = req.getParameter("login");
@@ -35,6 +35,6 @@ public class EditServlet extends HttpServlet {
         String role = req.getParameter("role");
         User user = new User(id, name, login, password, role);
         userService.updateUser(user);
-        resp.sendRedirect("/");
+        resp.sendRedirect("/list");
     }
 }
