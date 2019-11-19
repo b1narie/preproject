@@ -37,14 +37,27 @@ public class UserDAOJDBCImpl implements UserDAO {
         String query = "SELECT * FROM users WHERE id=" + id;
         return executor.executeQuery(query, resultSet -> {
             resultSet.next();
-            return new User(resultSet.getLong(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5));
+            Long userId = resultSet.getLong(1);
+            String userName = resultSet.getString(2);
+            String userLogin = resultSet.getString(3);
+            String userPassword = resultSet.getString(4);
+            String userRole = resultSet.getString(5);
+            return new User(userId, userName, userLogin, userPassword, userRole);
         });
     }
 
     @Override
     public User getUserByLoginAndPassword(String login, String password) {
         String query = "SELECT * FROM users WHERE login='" + login +"' AND password='" + password + "'";
-        return null;
+        return executor.executeQuery(query, resultSet -> {
+            resultSet.next();
+            Long userId = resultSet.getLong(1);
+            String userName = resultSet.getString(2);
+            String userLogin = resultSet.getString(3);
+            String userPassword = resultSet.getString(4);
+            String userRole = resultSet.getString(5);
+            return new User(userId, userName, userLogin, userPassword, userRole);
+        });
     }
 
     @Override

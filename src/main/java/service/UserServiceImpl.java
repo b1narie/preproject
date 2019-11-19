@@ -53,10 +53,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserByLoginAndPassword(String login, String password) {
-        List<User> users = new LinkedList<>(getAllUsers());
-        return users.stream()
-                .filter(user -> login.equals(user.getLogin()) && password.equals(user.getPassword()))
-                .findFirst()
-                .orElse(null);
+        return userDAO.getUserByLoginAndPassword(login, password);
     }
 }

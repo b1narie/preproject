@@ -4,6 +4,7 @@ import model.User;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 
 import java.util.List;
 
@@ -87,7 +88,10 @@ public class UserDAOHibernateImpl implements UserDAO {
     @Override
     public User getUserByLoginAndPassword(String login, String password) {
         Session session = factory.openSession();
-        User user = session.createQuery("FROM User user WHERE user.login =: login AND user.password =: password", User.class).getSingleResult();
+        Query<User> query = session.createQuery("FROM User user WHERE user.login =: login AND user.password =: password", User.class);
+        query.setParameter("login", login);
+        query.setParameter("password", password);
+        User user = query.getSingleResult();
         session.close();
         return user;
     }
