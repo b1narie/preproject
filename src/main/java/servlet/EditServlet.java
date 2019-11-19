@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/edit")
+@WebServlet("/admin/edit")
 public class EditServlet extends HttpServlet {
 
     private UserService userService = UserServiceImpl.getInstance();
@@ -20,9 +20,9 @@ public class EditServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Long id = Long.parseLong(req.getParameter("id"));
-        User user = userService.getUserById(id);
-        RequestDispatcher dispatcher = req.getRequestDispatcher("editform.jsp");
-        req.setAttribute("user" , user);
+        User userToEdit = userService.getUserById(id);
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/editform.jsp");
+        req.setAttribute("user", userToEdit);
         dispatcher.forward(req, resp);
     }
 
@@ -35,6 +35,6 @@ public class EditServlet extends HttpServlet {
         String role = req.getParameter("role");
         User user = new User(id, name, login, password, role);
         userService.updateUser(user);
-        resp.sendRedirect("/list");
+        resp.sendRedirect("/admin");
     }
 }

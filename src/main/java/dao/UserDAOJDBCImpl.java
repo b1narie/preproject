@@ -42,6 +42,12 @@ public class UserDAOJDBCImpl implements UserDAO {
     }
 
     @Override
+    public User getUserByLoginAndPassword(String login, String password) {
+        String query = "SELECT * FROM users WHERE login='" + login +"' AND password='" + password + "'";
+        return null;
+    }
+
+    @Override
     public List<User> getAllUsers() {
         String query = "SELECT * FROM users";
         return executor.executeQuery(query, resultSet -> {

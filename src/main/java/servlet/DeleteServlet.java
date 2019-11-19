@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/delete")
+@WebServlet("/admin/delete")
 public class DeleteServlet extends HttpServlet {
 
     private UserService userService = UserServiceImpl.getInstance();
@@ -18,8 +18,8 @@ public class DeleteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         Long id = Long.valueOf(req.getParameter("id"));
-        User user = userService.getUserById(id);
-        userService.deleteUser(user);
-        resp.sendRedirect("/");
+        User userToDelete = userService.getUserById(id);
+        userService.deleteUser(userToDelete);
+        resp.sendRedirect("/admin");
     }
 }

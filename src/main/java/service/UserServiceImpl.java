@@ -52,8 +52,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User authUser(String login, String password) {
-        LinkedList<User> users = new LinkedList<>(getAllUsers());
+    public User getUserByLoginAndPassword(String login, String password) {
+        List<User> users = new LinkedList<>(getAllUsers());
         return users.stream()
                 .filter(user -> login.equals(user.getLogin()) && password.equals(user.getPassword()))
                 .findFirst()

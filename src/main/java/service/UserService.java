@@ -16,5 +16,5 @@ public interface UserService {
 
     List<User> getAllUsers();
 
-    User authUser(String login, String password);
+    User getUserByLoginAndPassword(String login, String password);
 }

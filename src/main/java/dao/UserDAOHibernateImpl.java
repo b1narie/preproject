@@ -85,6 +85,14 @@ public class UserDAOHibernateImpl implements UserDAO {
     }
 
     @Override
+    public User getUserByLoginAndPassword(String login, String password) {
+        Session session = factory.openSession();
+        User user = session.createQuery("FROM User user WHERE user.login =: login AND user.password =: password", User.class).getSingleResult();
+        session.close();
+        return user;
+    }
+
+    @Override
     public List<User> getAllUsers() {
         Session session = factory.openSession();
         List<User> users = session.createQuery("FROM User", User.class).list();

@@ -13,7 +13,7 @@
 </head>
 <body>
 <div align="center">
-    <form action="add" method="post">
+    <form action="/admin/add" method="post">
         <table border="1" cellpadding="5">
             <tr>
                 <th>Name: </th>

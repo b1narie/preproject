@@ -29,15 +29,15 @@
                 <td><c:out value="${user.password}"/></td>
                 <td><c:out value="${user.role}"/></td>
                 <td>
-                    <a href="/edit?id=<c:out value="${user.id}"/>">Edit</a>
+                    <a href="/admin/edit?id=<c:out value="${user.id}"/>">Edit</a>
                     &nbsp;
-                    <a href="/delete?id=<c:out value="${user.id}"/>">Delete</a>
+                    <a href="/admin/delete?id=<c:out value="${user.id}"/>">Delete</a>
                 </td>
             </tr>
         </c:forEach>
     </table>
     <div align="center">
-        <h2><a href="/add">Add user</a></h2>
+        <h2><a href="/admin/add">Add user</a></h2>
     </div>
 </div>
 </body>

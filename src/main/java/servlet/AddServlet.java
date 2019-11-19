@@ -12,14 +12,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/add")
+@WebServlet("/admin/add")
 public class AddServlet extends HttpServlet {
 
     private UserService userService = UserServiceImpl.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher dispatcher = req.getRequestDispatcher("addform.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/addform.jsp");
         dispatcher.forward(req, resp);
     }
 
@@ -31,6 +31,6 @@ public class AddServlet extends HttpServlet {
         String role = req.getParameter("role");
         User user = new User(name, login, password, role);
         userService.addUser(user);
-        resp.sendRedirect("/list");
+        resp.sendRedirect("/admin");
     }
 }

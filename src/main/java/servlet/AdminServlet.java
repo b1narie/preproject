@@ -13,16 +13,16 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/list")
-public class ListServlet extends HttpServlet {
+@WebServlet(urlPatterns = "/admin")
+public class AdminServlet extends HttpServlet {
 
-    private UserService userService = UserServiceImpl.getInstance();
+    UserService userService = UserServiceImpl.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<User> allUsers = userService.getAllUsers();
         req.setAttribute("allUsers", allUsers);
-        RequestDispatcher dispatcher = req.getRequestDispatcher("list.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/list.jsp");
         dispatcher.forward(req, resp);
     }
 }
