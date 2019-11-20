@@ -4,7 +4,6 @@ import model.User;
 import service.UserService;
 import service.UserServiceImpl;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,8 +18,7 @@ public class AddServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/addform.jsp");
-        dispatcher.forward(req, resp);
+        req.getRequestDispatcher("/addform.jsp").forward(req, resp);
     }
 
     @Override

@@ -15,7 +15,6 @@ import java.util.Properties;
 public class DBHelper {
 
     private static Connection connection;
-    private static Configuration configuration;
     private static DBHelper instance;
 
     private DBHelper() {}
@@ -27,24 +26,30 @@ public class DBHelper {
         return instance;
     }
 
-    @SuppressWarnings("UnusedDeclaration")
-    public Configuration getMySqlConfiguration() {
-        configuration = new Configuration();
-        configuration.addAnnotatedClass(User.class);
-        Properties properties = PropertyReader.readProperties("hibernate");
-        configuration.setProperties(properties);
-        return configuration;
-    }
-
     public Connection getConnection() {
-        Properties properties = PropertyReader.readProperties("jdbc");
         try {
-            Class.forName(properties.getProperty("jdbc.driver_class"));
-            connection = DriverManager.getConnection(properties.getProperty("jdbc.url"), properties.getProperty("jdbc.username"), properties.getProperty("jdbc.password"));
+            Class.forName(PropertyReader.readProperty("jdbc.driver_class"));
+            connection = DriverManager.getConnection(PropertyReader.readProperty("jdbc.url"), PropertyReader.readProperty("jdbc.username"), PropertyReader.readProperty("jdbc.password"));
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return connection;
     }
 
+    public SessionFactory getSessionFactory() {
+        Configuration configuration = getMySqlConfiguration();
+        StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder();
+        builder.applySettings(configuration.getProperties());
+        ServiceRegistry serviceRegistry = builder.build();
+        return configuration.buildSessionFactory(serviceRegistry);
+    }
+
+    @SuppressWarnings("UnusedDeclaration")
+    private static Configuration getMySqlConfiguration() {
+        Properties properties = PropertyReader.readProperties();
+        Configuration configuration = new Configuration();
+        configuration.addAnnotatedClass(User.class);
+        configuration.setProperties(properties);
+        return configuration;
+    }
 }

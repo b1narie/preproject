@@ -12,7 +12,7 @@ public class UserDAOHibernateImpl implements UserDAO {
 
     private SessionFactory factory;
 
-    public UserDAOHibernateImpl(SessionFactory factory){
+    UserDAOHibernateImpl(SessionFactory factory){
         this.factory = factory;
     }
 
@@ -30,9 +30,7 @@ public class UserDAOHibernateImpl implements UserDAO {
             }
             e.printStackTrace();
         } finally {
-            if (session != null) {
-                session.close();
-            }
+            session.close();
         }
     }
 
@@ -50,9 +48,7 @@ public class UserDAOHibernateImpl implements UserDAO {
             }
             e.printStackTrace();
         } finally {
-            if (session != null) {
-                session.close();
-            }
+            session.close();
         }
     }
 
@@ -70,9 +66,7 @@ public class UserDAOHibernateImpl implements UserDAO {
             }
             e.printStackTrace();
         } finally {
-            if (session != null) {
-                session.close();
-            }
+            session.close();
         }
 
     }
@@ -80,27 +74,57 @@ public class UserDAOHibernateImpl implements UserDAO {
     @Override
     public User getUserById(Long id) {
         Session session = factory.openSession();
-        User user = session.get(User.class, id);
-        session.close();
-        return user;
+
+        try {
+            session.beginTransaction();
+            User user = session.get(User.class, id);
+            session.getTransaction().commit();
+            return user;
+        } catch (HibernateException e) {
+            session.getTransaction().rollback();
+            e.printStackTrace();
+            return null;
+        } finally {
+            session.close();
+        }
     }
 
     @Override
     public User getUserByLoginAndPassword(String login, String password) {
         Session session = factory.openSession();
-        Query<User> query = session.createQuery("FROM User user WHERE user.login =: login AND user.password =: password", User.class);
-        query.setParameter("login", login);
-        query.setParameter("password", password);
-        User user = query.getSingleResult();
-        session.close();
-        return user;
+
+        try {
+            session.beginTransaction();
+            Query<User> query = session.createQuery("FROM User user WHERE user.login =: login AND user.password =: password", User.class);
+            query.setParameter("login", login);
+            query.setParameter("password", password);
+            User user = query.getSingleResult();
+            session.getTransaction().commit();
+            return user;
+        } catch (HibernateException e) {
+            session.getTransaction().rollback();
+            e.printStackTrace();
+            return null;
+        } finally {
+            session.close();
+        }
     }
 
     @Override
     public List<User> getAllUsers() {
         Session session = factory.openSession();
-        List<User> users = session.createQuery("FROM User", User.class).list();
-        session.close();
-        return users;
+
+        try {
+            session.beginTransaction();
+            List<User> users = session.createQuery("FROM User", User.class).list();
+            session.getTransaction().commit();
+            return users;
+        } catch (HibernateException e) {
+            session.getTransaction().rollback();
+            e.printStackTrace();
+            return null;
+        } finally {
+            session.close();
+        }
     }
 }

@@ -13,5 +13,8 @@
 </head>
 <body>
     <p>Welcome <c:out value="${user.name}" /> </p>
+    <form action="/logout">
+        <button type="submit">Logout</button>
+    </form>
 </body>
 </html>

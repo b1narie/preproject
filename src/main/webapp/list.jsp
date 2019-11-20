@@ -28,17 +28,25 @@
                 <td><c:out value="${user.login}"/></td>
                 <td><c:out value="${user.password}"/></td>
                 <td><c:out value="${user.role}"/></td>
-                <td>
-                    <a href="/admin/edit?id=<c:out value="${user.id}"/>">Edit</a>
-                    &nbsp;
-                    <a href="/admin/delete?id=<c:out value="${user.id}"/>">Delete</a>
-                </td>
+                <form method="get" action="/admin/edit">
+                    <td>
+                        <button type="submit" name="id" value="${user.id}">Edit</button>
+                    </td>
+                </form>
+                <form method="get" action="/admin/delete">
+                    <td>
+                        <button type="submit" name="id" value="${user.id}">Delete</button>
+                    </td>
+                </form>
             </tr>
         </c:forEach>
     </table>
     <div align="center">
         <h2><a href="/admin/add">Add user</a></h2>
     </div>
+    <form action="/logout">
+        <button type="submit">Logout</button>
+    </form>
 </div>
 </body>
 </html>
